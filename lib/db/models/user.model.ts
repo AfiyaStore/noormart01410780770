@@ -6,10 +6,13 @@ import {
   model,
   models,
   Schema,
+  Types,
 } from 'mongoose'
 
 export interface IUser extends Document, IUserInput {
-  _id: string
+  // _id: string
+  _id: Types.ObjectId   // ✅ ObjectId ব্যবহার করতে হবে
+
   createdAt: Date
   updatedAt: Date
 }
