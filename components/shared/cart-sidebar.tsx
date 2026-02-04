@@ -1,3 +1,4 @@
+'use client' // 🔑 client-only component
 import useCartStore from '@/hooks/use-cart-store'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
