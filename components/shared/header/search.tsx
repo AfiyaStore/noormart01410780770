@@ -36,6 +36,9 @@ export default async function Search() {
                 name='q'
                 type='search'
             />
+
+
+
             <button
                 type='submit'
                 className='bg-primary text-primary-foreground text-black rounded-s-none rounded-e-md h-0.5rem px-3 '
@@ -45,3 +48,67 @@ export default async function Search() {
         </form>
     )
 }
+
+//import { SearchIcon } from 'lucide-react'
+// import { Input } from '@/components/ui/input'
+
+// import {
+//     Select,
+//     SelectContent,
+//     SelectItem,
+//     SelectTrigger,
+//     SelectValue,
+// } from '@/components/ui/select'
+// import { APP_NAME } from '@/lib/constants'
+
+// const categories = ['men', 'women', 'kids', 'accessories']
+
+// export default async function Search() {
+//     return (
+//         <form
+//             action='/search'
+//             method='GET'
+//             className='flex items-stretch h-full border rounded-md overflow-hidden'
+//         >
+//             {/* Category select */}
+//             <Select name='category'>
+//                 <SelectTrigger className='w-auto border-r border-gray-300 bg-gray-100 text-black rounded-none'>
+//                     <SelectValue placeholder='All' />
+//                 </SelectTrigger>
+//                 <SelectContent position='popper'>
+//                     <SelectItem value='all'>All</SelectItem>
+//                     {categories.map((category) => (
+//                         <SelectItem key={category} value={category}>
+//                             {category}
+//                         </SelectItem>
+//                     ))}
+//                 </SelectContent>
+//             </Select>
+
+//             {/* Search input */}
+//             <Input
+//                 className="
+//                     flex-1
+//                     border-none
+//                     bg-gray-100 dark:bg-gray-800
+//                     text-black dark:text-white
+//                     px-3 py-2
+//                     rounded-none
+//                     focus:outline-none
+//                     focus:border-primary
+//                 "
+//                 placeholder={`Search Site ${APP_NAME}`}
+//                 name='q'
+//                 type='search'
+//             />
+
+//             {/* Submit button */}
+//             <button
+//                 type='submit'
+//                 className='bg-primary text-white px-3 flex items-center justify-center'
+//             >
+//                 <SearchIcon className='w-5 h-5' />
+//             </button>
+//         </form>
+//     )
+// }
