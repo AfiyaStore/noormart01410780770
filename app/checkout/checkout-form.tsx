@@ -27,6 +27,7 @@ import {
 import { ShippingAddressSchema } from '@/lib/validator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -42,6 +43,7 @@ import {
     AVAILABLE_PAYMENT_METHODS,
     DEFAULT_PAYMENT_METHOD,
 } from '@/lib/constants'
+import { createOrder } from '@/lib/actions/order.actions'
 
 const shippingAddressDefaultValues =
     process.env.NODE_ENV === 'development'
@@ -83,6 +85,8 @@ const CheckoutForm = () => {
         updateItem,
         removeItem,
         setDeliveryDateIndex,
+        clearCart,
+
     } = useCartStore()
     const isMounted = useIsMounted()
 
@@ -114,6 +118,36 @@ const CheckoutForm = () => {
 
     const handlePlaceOrder = async () => {
         // TODO: place order
+        const res = await createOrder({
+            items,
+            shippingAddress,
+            expectedDeliveryDate: calculateFutureDate(
+                AVAILABLE_DELIVERY_DATES[deliveryDateIndex!].daysToDeliver
+            ),
+            deliveryDateIndex,
+            paymentMethod,
+            itemsPrice,
+            shippingPrice,
+            taxPrice,
+            totalPrice,
+        })
+        if (!res.success) {
+            //   toast({
+            //     description: res.message,
+            //     variant: 'destructive',
+            //   })
+            toast(res.message)
+
+        } else {
+            //   toast({
+            //     description: res.message,
+            //     variant: 'default',
+            //   })
+            toast(res.message)
+
+            clearCart()
+            router.push(`/checkout/${res.data?.orderId}`)
+        }
     }
     const handleSelectPaymentMethod = () => {
         setIsAddressSelected(true)
