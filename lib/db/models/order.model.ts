@@ -1,8 +1,10 @@
 import { IOrderInput } from '@/types'
-import { Document, Model, model, models, Schema } from 'mongoose'
+import { Document, Model, model, models, Schema, Types } from 'mongoose'
 
 export interface IOrder extends Document, IOrderInput {
-    _id: string
+    // _id: string
+    _id: Types.ObjectId   // ✅ ObjectId ব্যবহার করতে হবে
+
     createdAt: Date
     updatedAt: Date
 }
