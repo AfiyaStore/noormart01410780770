@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import {
     approvePayPalOrder,
     createPayPalOrder,
+    createShurjoPayOrder,
 } from '@/lib/actions/order.actions'
 import { IOrder } from '@/lib/db/models/order.model'
 import { formatDateTime } from '@/lib/utils'
@@ -175,6 +176,12 @@ export default function OrderPaymentForm({
                             </Elements>
                         )}
 
+                        {!isPaid && ['bKash', 'Nagad'].includes(paymentMethod) && (
+                            <Button className='w-full' onClick={handleShurjoPay}>
+                                Pay with {paymentMethod}
+                            </Button>
+                        )}
+
                         {!isPaid && paymentMethod === 'Cash On Delivery' && (
                             <Button
                                 className='w-full rounded-full'
@@ -191,6 +198,10 @@ export default function OrderPaymentForm({
     const stripePromise = loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
     )
+    const handleShurjoPay = async () => {
+        const res = await createShurjoPayOrder(order._id.toString())
+        window.location.href = res.checkoutUrl
+    }
     return (
         <main className='max-w-6xl mx-auto'>
             <div className='grid md:grid-cols-4 gap-6'>

@@ -10,6 +10,7 @@ import { revalidatePath } from 'next/cache'
 import { sendPurchaseReceipt } from '@/emails'
 import { AVAILABLE_DELIVERY_DATES, FREE_SHIPPING_MIN_PRICE } from '../constants'
 import { paypal } from '../paypal'
+import { createShurjoPaySession } from '../shurjopay'
 
 // CREATE
 export const createOrder = async (clientSideCart: Cart) => {
@@ -168,6 +169,35 @@ export const calcDeliveryDateAndPrice = async ({
         shippingPrice,
         taxPrice,
         totalPrice,
+    }
+}
+
+
+export async function createShurjoPayOrder(orderId: string) {
+    await connectToDatabase()
+    const order = await Order.findById(orderId).populate('user', 'email')
+
+    if (!order) throw new Error('Order not found')
+
+    const session = await createShurjoPaySession({
+        orderId: order._id.toString(),
+        amount: order.totalPrice,
+        customerName: order.shippingAddress.fullName,
+        customerPhone: order.shippingAddress.phone,
+        customerEmail: (order.user as { email: string }).email,
+    })
+
+    order.paymentResult = {
+        id: session.sp_order_id,
+        status: 'PENDING',
+        email_address: '',
+        pricePaid: '0',
+    }
+
+    await order.save()
+
+    return {
+        checkoutUrl: session.checkout_url,
     }
 }
 

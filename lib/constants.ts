@@ -28,6 +28,16 @@ export const AVAILABLE_PAYMENT_METHODS = [
         isDefault: true,
     },
     {
+        name: 'Bkash',
+        commission: 0,
+        isDefault: true,
+    },
+    {
+        name: 'Nagad',
+        commission: 0,
+        isDefault: true,
+    },
+    {
         name: 'Cash On Delivery',
         commission: 0,
         isDefault: true,
