@@ -54,15 +54,18 @@ import {
 } from '@/components/ui/sheet'
 import ThemeSwitcher from './theme-switcher'
 import UserButton from './user-button'
+const Menu = ({ forAdmin = false }: { forAdmin?: boolean }) => {
 
-export default function Menu() {
+    // export default function Menu() {
     return (
         <div className='flex justify-end'>
             <nav className='hidden md:flex gap-3  w-full'>
                 <ThemeSwitcher />
                 <UserButton />
 
-                <CartButton />
+                {/* <CartButton /> */}
+                {forAdmin ? null : <CartButton />}
+
             </nav>
             <nav className='md:hidden'>
                 <Sheet>
@@ -85,3 +88,6 @@ export default function Menu() {
         </div>
     )
 }
+
+
+export default Menu

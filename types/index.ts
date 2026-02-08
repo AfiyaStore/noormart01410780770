@@ -22,6 +22,14 @@ import {
 //     }
 // }
 export type IReviewInput = z.infer<typeof ReviewInputSchema>
+export type IOrderList = IOrderInput & {
+    _id: string
+    user: {
+        name: string
+        email: string
+    }
+    createdAt: Date
+}
 export type IReviewDetails = IReviewInput & {
     _id: string
     createdAt: string
