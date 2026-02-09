@@ -22,44 +22,49 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { useToast } from '@/hooks/use-toast'
+// import { useToast } from '@/hooks/use-toast'
 import { updateUser } from '@/lib/actions/user.actions'
 import { USER_ROLES } from '@/lib/constants'
 import { IUser } from '@/lib/db/models/user.model'
 import { UserUpdateSchema } from '@/lib/validator'
+import { toast } from 'sonner'
 
 const UserEditForm = ({ user }: { user: IUser }) => {
     const router = useRouter()
 
     const form = useForm<z.infer<typeof UserUpdateSchema>>({
         resolver: zodResolver(UserUpdateSchema),
-        defaultValues: user,
+        // defaultValues: user,
+        defaultValues: { ...user, _id: user._id.toString() },
+
     })
 
-    const { toast } = useToast()
     async function onSubmit(values: z.infer<typeof UserUpdateSchema>) {
         try {
             const res = await updateUser({
                 ...values,
-                _id: user._id,
+                _id: user._id.toString(),
             })
             if (!res.success)
-                return toast({
-                    variant: 'destructive',
-                    description: res.message,
-                })
+                // return toast({
+                //     variant: 'destructive',
+                //     description: res.message,
+                // })
+                toast(res.message)
 
-            toast({
-                description: res.message,
-            })
+            // toast({
+            //     description: res.message,
+            // })
+            toast(res.message)
             form.reset()
             router.push(`/admin/users`)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            toast({
-                variant: 'destructive',
-                description: error.message,
-            })
+            // toast({
+            //     variant: 'destructive',
+            //     description: error.message,
+            // })
+            toast.message
         }
     }
 

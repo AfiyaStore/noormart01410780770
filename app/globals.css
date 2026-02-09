@@ -136,6 +136,10 @@
     @apply cursor-pointer p-1 border border-transparent hover:border-white rounded-[2px];
   }
 
+  .web-page-content p {
+    @apply py-2;
+  }
+
   .item-button {
     @apply p-3 hover:bg-muted hover:no-underline;
   }

@@ -12,11 +12,13 @@ const nextConfig: NextConfig = {
     ],
   },
 }
-export default nextConfig;
+
 
 // import type { NextConfig } from 'next'
+// import withNextIntl from 'next-intl/plugin'
 
-// const nextConfig: NextConfig = {
+// const nextConfig: NextConfig = withNextIntl()({
+//   /* config options here */
 //   images: {
 //     remotePatterns: [
 //       {
@@ -26,15 +28,6 @@ export default nextConfig;
 //       },
 //     ],
 //   },
-
-//   // Webpack customization to handle .md files (Uploadthing dependency)
-//   webpack: (config) => {
-//     config.module.rules.push({
-//       test: /\.md$/,
-//       type: 'asset/source', // treat README.md as plain source
-//     })
-//     return config
-//   },
-// }
+// })
 
 // export default nextConfig
