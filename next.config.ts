@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+import withNextIntl from 'next-intl/plugin'
 
-/* config options here */
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = withNextIntl()({
+  /* config options here */
   images: {
     remotePatterns: [
       {
@@ -11,23 +12,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-}
+})
 
-
-// import type { NextConfig } from 'next'
-// import withNextIntl from 'next-intl/plugin'
-
-// const nextConfig: NextConfig = withNextIntl()({
-//   /* config options here */
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'utfs.io',
-//         port: '',
-//       },
-//     ],
-//   },
-// })
-
-// export default nextConfig
+export default nextConfig

@@ -1,6 +1,8 @@
 import { Data, IProductInput, IUserInput } from '@/types'
 import { toSlug } from './utils'
 import bcrypt from 'bcryptjs'
+import { i18n } from '@/i18n-config'
+
 const users: IUserInput[] = [
     {
         name: 'John',
@@ -259,9 +261,7 @@ const users: IUserInput[] = [
     },
 ]
 
-users
 const products: IProductInput[] = [
-    // T-Shirts
     {
         name: 'Nike Mens Slim-fit Long-Sleeve T-Shirt',
         slug: toSlug('Nike Mens Slim-fit Long-Sleeve T-Shirt'),
@@ -587,9 +587,7 @@ const products: IProductInput[] = [
     },
     {
         name: 'Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean',
-        slug: toSlug(
-            'Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean'
-        ),
+        slug: toSlug('Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean'),
         category: 'Jeans',
         brand: 'Wrangler',
         images: ['/images/p26-1.jpg', '/images/p26-2.jpg'],
@@ -736,9 +734,7 @@ const products: IProductInput[] = [
     },
     {
         name: "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch",
-        slug: toSlug(
-            "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch"
-        ),
+        slug: toSlug("Fossil Men's Grant Stainless Steel Quartz Chronograph Watch"),
         category: 'Wrist Watches',
         brand: 'Fossil',
         images: ['/images/p35-1.jpg', '/images/p35-2.jpg'],
@@ -795,9 +791,7 @@ const products: IProductInput[] = [
     // Sneakers
     {
         name: 'adidas Mens Grand Court 2.0 Training Shoes Training Shoes',
-        slug: toSlug(
-            'adidas Mens Grand Court 2.0 Training Shoes Training Shoes'
-        ),
+        slug: toSlug('adidas Mens Grand Court 2.0 Training Shoes Training Shoes'),
         category: 'Shoes',
         brand: 'adidas',
         images: ['/images/p41-1.jpg', '/images/p41-2.jpg'],
@@ -1066,63 +1060,9 @@ const reviews = [
 ]
 
 const data: Data = {
-    headerMenus: [
-        {
-            name: "Today's Deal",
-            href: '/search?tag=todays-deal',
-        },
-        {
-            name: 'New Arrivals',
-            href: '/search?tag=new-arrival',
-        },
-        {
-            name: 'Featured Products',
-            href: '/search?tag=featured',
-        },
-        {
-            name: 'Best Sellers',
-            href: '/search?tag=best-seller',
-        },
-        {
-            name: 'Browsing History',
-            href: '/#browsing-history',
-        },
-        {
-            name: 'Customer Service',
-            href: '/page/customer-service',
-        },
-        {
-            name: 'About Us',
-            href: '/page/about-us',
-        },
-        {
-            name: 'Help',
-            href: '/page/help',
-        },
-    ],
-    carousels: [
-        {
-            title: 'Most Popular Shoes For Sale',
-            buttonCaption: 'Shop Now',
-            image: '/images/banner3.jpg',
-            url: '/search?category=Shoes',
-            isPublished: true,
-        },
-        {
-            title: 'Best Sellers in T-Shirts',
-            buttonCaption: 'Shop Now',
-            image: '/images/banner1.jpg',
-            url: '/search?category=T-Shirts',
-            isPublished: true,
-        },
-        {
-            title: 'Best Deals on Wrist Watches',
-            buttonCaption: 'See More',
-            image: '/images/banner2.jpg',
-            url: '/search?category=Wrist Watches',
-            isPublished: true,
-        },
-    ],
+    users,
+    products,
+    reviews,
     webPages: [
         {
             title: 'About Us',
@@ -1244,11 +1184,151 @@ We also provide helpful resources such as order tracking, product guides, and FA
             isPublished: true,
         },
     ],
-    products,
-    reviews,
-    users: users,
-    // ✅ এই lineটা add করো
-
+    headerMenus: [
+        {
+            name: "Today's Deal",
+            href: '/search?tag=todays-deal',
+        },
+        {
+            name: 'New Arrivals',
+            href: '/search?tag=new-arrival',
+        },
+        {
+            name: 'Featured Products',
+            href: '/search?tag=featured',
+        },
+        {
+            name: 'Best Sellers',
+            href: '/search?tag=best-seller',
+        },
+        {
+            name: 'Browsing History',
+            href: '/#browsing-history',
+        },
+        {
+            name: 'Customer Service',
+            href: '/page/customer-service',
+        },
+        {
+            name: 'About Us',
+            href: '/page/about-us',
+        },
+        {
+            name: 'Help',
+            href: '/page/help',
+        },
+    ],
+    carousels: [
+        {
+            title: 'Most Popular Shoes For Sale',
+            buttonCaption: 'Shop Now',
+            image: '/images/banner3.jpg',
+            url: '/search?category=Shoes',
+            isPublished: true,
+        },
+        {
+            title: 'Best Sellers in T-Shirts',
+            buttonCaption: 'Shop Now',
+            image: '/images/banner1.jpg',
+            url: '/search?category=T-Shirts',
+            isPublished: true,
+        },
+        {
+            title: 'Best Deals on Wrist Watches',
+            buttonCaption: 'See More',
+            image: '/images/banner2.jpg',
+            url: '/search?category=Wrist Watches',
+            isPublished: true,
+        },
+    ],
+    settings: [
+        {
+            common: {
+                freeShippingMinPrice: 35,
+                isMaintenanceMode: false,
+                defaultTheme: 'Light',
+                defaultColor: 'Gold',
+                pageSize: 9,
+            },
+            site: {
+                name: 'NxtAmzn',
+                description:
+                    'NxtAmzn is a sample Ecommerce website built with Next.js, Tailwind CSS, and MongoDB.',
+                keywords: 'Next Ecommerce, Next.js, Tailwind CSS, MongoDB',
+                url: 'https://next-mongo-ecommerce-final.vercel.app',
+                logo: '/icons/logo.svg',
+                slogan: 'Spend less, enjoy more.',
+                author: 'Next Ecommerce',
+                copyright: '2000-2024, Next-Ecommerce.com, Inc. or its affiliates',
+                email: 'admin@example.com',
+                address: '123, Main Street, Anytown, CA, Zip 12345',
+                phone: '+1 (123) 456-7890',
+            },
+            carousels: [
+                {
+                    title: 'Most Popular Shoes For Sale',
+                    buttonCaption: 'Shop Now',
+                    image: '/images/banner3.jpg',
+                    url: '/search?category=Shoes',
+                },
+                {
+                    title: 'Best Sellers in T-Shirts',
+                    buttonCaption: 'Shop Now',
+                    image: '/images/banner1.jpg',
+                    url: '/search?category=T-Shirts',
+                },
+                {
+                    title: 'Best Deals on Wrist Watches',
+                    buttonCaption: 'See More',
+                    image: '/images/banner2.jpg',
+                    url: '/search?category=Wrist Watches',
+                },
+            ],
+            availableLanguages: i18n.locales.map((locale) => ({
+                code: locale.code,
+                name: locale.name,
+            })),
+            defaultLanguage: 'en-US',
+            availableCurrencies: [
+                {
+                    name: 'United States Dollar',
+                    code: 'USD',
+                    symbol: '$',
+                    convertRate: 1,
+                },
+                { name: 'Euro', code: 'EUR', symbol: '€', convertRate: 0.96 },
+                { name: 'UAE Dirham', code: 'AED', symbol: 'AED', convertRate: 3.67 },
+            ],
+            defaultCurrency: 'USD',
+            availablePaymentMethods: [
+                { name: 'PayPal', commission: 0 },
+                { name: 'Stripe', commission: 0 },
+                { name: 'Cash On Delivery', commission: 0 },
+            ],
+            defaultPaymentMethod: 'PayPal',
+            availableDeliveryDates: [
+                {
+                    name: 'Tomorrow',
+                    daysToDeliver: 1,
+                    shippingPrice: 12.9,
+                    freeShippingMinPrice: 0,
+                },
+                {
+                    name: 'Next 3 Days',
+                    daysToDeliver: 3,
+                    shippingPrice: 6.9,
+                    freeShippingMinPrice: 0,
+                },
+                {
+                    name: 'Next 5 Days',
+                    daysToDeliver: 5,
+                    shippingPrice: 4.9,
+                    freeShippingMinPrice: 35,
+                },
+            ],
+            defaultDeliveryDate: 'Next 5 Days',
+        },
+    ],
 }
 
 export default data
