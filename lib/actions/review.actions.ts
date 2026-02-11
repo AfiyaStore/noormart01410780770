@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { revalidatePath } from 'next/cache'
 
 import { auth } from '@/auth'
+import { getSetting } from './setting.actions'
 
 import { connectToDatabase } from '../db'
 import Product from '../db/models/product.model'
@@ -11,7 +12,6 @@ import Review, { IReview } from '../db/models/review.model'
 import { formatError } from '../utils'
 import { ReviewInputSchema } from '../validator'
 import { IReviewDetails, IReviewInput } from '@/types'
-import { PAGE_SIZE } from '../constants'
 
 export async function createUpdateReview({
     data,
@@ -108,7 +108,11 @@ export async function getReviews({
     limit?: number
     page: number
 }) {
-    limit = limit || PAGE_SIZE
+
+    const {
+        common: { pageSize },
+    } = await getSetting()
+    limit = limit || pageSize
     await connectToDatabase()
     const skipAmount = (page - 1) * limit
     const reviews = await Review.find({ product: productId })

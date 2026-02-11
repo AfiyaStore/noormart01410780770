@@ -112,6 +112,8 @@
 
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
+import NextAuth from 'next-auth'
+import authConfig from './auth.config'
 
 const publicPages = [
   '/',

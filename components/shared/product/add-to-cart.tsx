@@ -1,3 +1,123 @@
+// // /* eslint-disable @typescript-eslint/no-explicit-any */
+// // 'use client'
+
+// // import { Button } from '@/components/ui/button'
+// // import {
+// //     Select,
+// //     SelectContent,
+// //     SelectItem,
+// //     SelectTrigger,
+// //     SelectValue,
+// // } from '@/components/ui/select'
+// // import useCartStore from '@/hooks/use-cart-store'
+// // import { toast } from 'sonner'
+// // import { OrderItem } from '@/types'
+// // import { useRouter } from 'next/navigation'
+// // import { useState } from 'react'
+
+// // export default function AddToCart({
+// //     item,
+// //     minimal = false,
+// // }: {
+// //     item: OrderItem
+// //     minimal?: boolean
+// // }) {
+// //     const router = useRouter()
+// //     const { toast } = useToast()
+
+// //     const { addItem } = useCartStore()
+
+// //     const [quantity, setQuantity] = useState(1)
+
+// //     return minimal ? (
+// //         <Button
+// //             className='rounded-full w-auto'
+// //             onClick={() => {
+// //                 try {
+// //                     addItem(item, 1)
+// //                     toast({
+// //                         description: 'Added to Cart',
+// //                         action: (
+// //                             <Button
+// //                                 onClick={() => {
+// //                                     router.push('/cart')
+// //                                 }}
+// //                             >
+// //                                 Go to Cart
+// //                             </Button>
+// //                         ),
+// //                     })
+// //                 } catch (error: any) {
+// //                     toast({
+// //                         variant: 'destructive',
+// //                         description: error.message,
+// //                     })
+// //                 }
+// //             }}
+// //         >
+// //             Add to Cart
+// //         </Button>
+// //     ) : (
+// //         <div className='w-full space-y-2'>
+// //             <Select
+// //                 value={quantity.toString()}
+// //                 onValueChange={(i) => setQuantity(Number(i))}
+// //             >
+// //                 <SelectTrigger className=''>
+// //                     <SelectValue>Quantity: {quantity}</SelectValue>
+// //                 </SelectTrigger>
+// //                 <SelectContent position='popper'>
+// //                     {Array.from({ length: item.countInStock }).map((_, i) => (
+// //                         <SelectItem key={i + 1} value={`${i + 1}`}>
+// //                             {i + 1}
+// //                         </SelectItem>
+// //                     ))}
+// //                 </SelectContent>
+// //             </Select>
+
+// //             <Button
+// //                 className='rounded-full w-full'
+// //                 type='button'
+// //                 onClick={async () => {
+// //                     try {
+// //                         const itemId = await addItem(item, quantity)
+// //                         router.push(`/cart/${itemId}`)
+// //                     } catch (error: any) {
+// //                         toast({
+// //                             variant: 'destructive',
+// //                             description: error.message,
+// //                         })
+// //                     }
+// //                 }}
+// //             >
+// //                 Add to Cart
+// //             </Button>
+// //             <Button
+// //                 variant='secondary'
+// //                 onClick={() => {
+// //                     try {
+// //                         addItem(item, quantity)
+// //                         router.push(`/checkout`)
+// //                     } catch (error: any) {
+// //                         toast({
+// //                             variant: 'destructive',
+// //                             description: error.message,
+// //                         })
+// //                     }
+// //                 }}
+// //                 className='w-full rounded-full '
+// //             >
+// //                 Buy Now
+// //             </Button>
+// //         </div>
+// //     )
+// // }
+
+// // function useToast(): { toast: any } {
+// //     throw new Error('Function not implemented.')
+// // }
+
+
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // 'use client'
 
@@ -10,10 +130,10 @@
 //     SelectValue,
 // } from '@/components/ui/select'
 // import useCartStore from '@/hooks/use-cart-store'
-// import { toast } from 'sonner'
 // import { OrderItem } from '@/types'
 // import { useRouter } from 'next/navigation'
 // import { useState } from 'react'
+// import { toast } from 'sonner'
 
 // export default function AddToCart({
 //     item,
@@ -23,10 +143,7 @@
 //     minimal?: boolean
 // }) {
 //     const router = useRouter()
-//     const { toast } = useToast()
-
 //     const { addItem } = useCartStore()
-
 //     const [quantity, setQuantity] = useState(1)
 
 //     return minimal ? (
@@ -35,23 +152,16 @@
 //             onClick={() => {
 //                 try {
 //                     addItem(item, 1)
-//                     toast({
-//                         description: 'Added to Cart',
-//                         action: (
-//                             <Button
-//                                 onClick={() => {
-//                                     router.push('/cart')
-//                                 }}
-//                             >
-//                                 Go to Cart
-//                             </Button>
-//                         ),
+//                     toast('Added to Cart', {
+//                         action: {
+//                             label: 'Go to Cart',
+//                             onClick: () => {
+//                                 router.push('/cart')
+//                             },
+//                         },
 //                     })
 //                 } catch (error: any) {
-//                     toast({
-//                         variant: 'destructive',
-//                         description: error.message,
-//                     })
+//                     toast.error(error.message)
 //                 }
 //             }}
 //         >
@@ -62,8 +172,11 @@
 //             <Select
 //                 value={quantity.toString()}
 //                 onValueChange={(i) => setQuantity(Number(i))}
+
 //             >
-//                 <SelectTrigger className=''>
+//                 <SelectTrigger
+//                     className='rounded-full w-full'
+//                 >
 //                     <SelectValue>Quantity: {quantity}</SelectValue>
 //                 </SelectTrigger>
 //                 <SelectContent position='popper'>
@@ -81,42 +194,34 @@
 //                 onClick={async () => {
 //                     try {
 //                         const itemId = await addItem(item, quantity)
+//                         toast.success('Added to Cart')
 //                         router.push(`/cart/${itemId}`)
 //                     } catch (error: any) {
-//                         toast({
-//                             variant: 'destructive',
-//                             description: error.message,
-//                         })
+//                         toast.error(error.message)
 //                     }
 //                 }}
 //             >
 //                 Add to Cart
 //             </Button>
+
 //             <Button
 //                 variant='secondary'
 //                 onClick={() => {
 //                     try {
 //                         addItem(item, quantity)
-//                         router.push(`/checkout`)
+//                         toast.success('Proceeding to Checkout')
+//                         router.push('/checkout')
 //                     } catch (error: any) {
-//                         toast({
-//                             variant: 'destructive',
-//                             description: error.message,
-//                         })
+//                         toast.error(error.message)
 //                     }
 //                 }}
-//                 className='w-full rounded-full '
+//                 className='w-full rounded-full'
 //             >
 //                 Buy Now
 //             </Button>
 //         </div>
 //     )
 // }
-
-// function useToast(): { toast: any } {
-//     throw new Error('Function not implemented.')
-// }
-
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
@@ -130,7 +235,9 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import useCartStore from '@/hooks/use-cart-store'
+import { useToast } from '@/hooks/use-toast'
 import { OrderItem } from '@/types'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -143,8 +250,13 @@ export default function AddToCart({
     minimal?: boolean
 }) {
     const router = useRouter()
+
     const { addItem } = useCartStore()
+
+    //PROMPT: add quantity state
     const [quantity, setQuantity] = useState(1)
+
+    const t = useTranslations()
 
     return minimal ? (
         <Button
@@ -152,32 +264,40 @@ export default function AddToCart({
             onClick={() => {
                 try {
                     addItem(item, 1)
-                    toast('Added to Cart', {
-                        action: {
-                            label: 'Go to Cart',
-                            onClick: () => {
-                                router.push('/cart')
-                            },
-                        },
+                    // toast({
+                    //   description: t('Product.Added to Cart'),
+                    toast.success(t('Product.Added to Cart'), {
+                        action: (
+                            <Button
+                                onClick={() => {
+                                    router.push('/cart')
+                                }}
+                            >
+                                {t('Product.Go to Cart')}
+                            </Button>
+                        ),
                     })
                 } catch (error: any) {
+                    // toast({
+                    //   variant: 'destructive',
+                    //   description: error.message,
+                    // })
                     toast.error(error.message)
                 }
             }}
         >
-            Add to Cart
+            {t('Product.Add to Cart')}
         </Button>
     ) : (
         <div className='w-full space-y-2'>
             <Select
                 value={quantity.toString()}
                 onValueChange={(i) => setQuantity(Number(i))}
-
             >
-                <SelectTrigger
-                    className='rounded-full w-full'
-                >
-                    <SelectValue>Quantity: {quantity}</SelectValue>
+                <SelectTrigger className=''>
+                    <SelectValue>
+                        {t('Product.Quantity')}: {quantity}
+                    </SelectValue>
                 </SelectTrigger>
                 <SelectContent position='popper'>
                     {Array.from({ length: item.countInStock }).map((_, i) => (
@@ -194,30 +314,36 @@ export default function AddToCart({
                 onClick={async () => {
                     try {
                         const itemId = await addItem(item, quantity)
-                        toast.success('Added to Cart')
                         router.push(`/cart/${itemId}`)
                     } catch (error: any) {
+                        // toast({
+                        //   variant: 'destructive',
+                        //   description: error.message,
+                        // })
                         toast.error(error.message)
+
                     }
                 }}
             >
-                Add to Cart
+                {t('Product.Add to Cart')}
             </Button>
-
             <Button
                 variant='secondary'
                 onClick={() => {
                     try {
                         addItem(item, quantity)
-                        toast.success('Proceeding to Checkout')
-                        router.push('/checkout')
+                        router.push(`/checkout`)
                     } catch (error: any) {
+                        // toast({
+                        //   variant: 'destructive',
+                        //   description: error.message,
+                        // })
                         toast.error(error.message)
                     }
                 }}
-                className='w-full rounded-full'
+                className='w-full rounded-full '
             >
-                Buy Now
+                {t('Product.Buy Now')}
             </Button>
         </div>
     )

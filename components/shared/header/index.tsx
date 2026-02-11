@@ -1,12 +1,14 @@
-import { APP_NAME } from '@/lib/constants'
+import { getAllCategories } from '@/lib/actions/product.actions'
+import data from '@/lib/data'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import Menu from './menu'
-import data from '@/lib/data'
 import Search from './search'
 import Sidebar from './sidebar'
-import { getAllCategories } from '@/lib/actions/product.actions'
-
+import { getTranslations } from 'next-intl/server'
+const { site } = await getSetting()
+const t = await getTranslations()
 export default async function Header() {
     const categories = await getAllCategories()
 
@@ -20,12 +22,12 @@ export default async function Header() {
                             className='flex items-center header-button font-extrabold text-2xl m-1 '
                         >
                             <Image
-                                src='/icons/logo.svg.webp'
+                                src={site.logo}
                                 width={40}
                                 height={40}
-                                alt={`${APP_NAME} logo`}
+                                alt={`${site.name} logo`}
                             />
-                            {APP_NAME}
+                            {site.name}
                         </Link>
                     </div>
                     <div className='hidden md:block flex-1 max-w-xl'>
@@ -33,7 +35,8 @@ export default async function Header() {
                     </div>
                     <Menu />
                 </div>
-                <div className='md:hidden block py-2'>
+                <div className='header-button !p-2 '
+                >
                     <Search />
                 </div>
             </div>
@@ -57,11 +60,17 @@ export default async function Header() {
                             key={menu.href}
                             className='header-button !p-2'
                         >
-                            {menu.name}
+                            {/* {menu.name} */}
+                            {t('Header.' + menu.name)}
+
                         </Link>
                     ))}
                 </div>
             </div>
         </header>
     )
+}
+
+function getSetting(): { site: any } | PromiseLike<{ site: any }> {
+    throw new Error('Function not implemented.')
 }

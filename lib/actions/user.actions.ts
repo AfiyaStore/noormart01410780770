@@ -7,9 +7,10 @@ import { formatError } from '../utils'
 import { redirect } from 'next/navigation'
 import User, { IUser } from '../db/models/user.model'
 import { revalidatePath } from 'next/cache'
-import { PAGE_SIZE } from '../constants'
 import { UserSignUpSchema, UserUpdateSchema } from '../validator'
 import { z } from 'zod'
+import { getSetting } from './setting.actions'
+
 
 export async function updateUser(user: z.infer<typeof UserUpdateSchema>) {
     try {
@@ -62,7 +63,10 @@ export async function getAllUsers({
     limit?: number
     page: number
 }) {
-    limit = limit || PAGE_SIZE
+    const {
+        common: { pageSize },
+    } = await getSetting()
+    limit = limit || pageSize
     await connectToDatabase()
 
     const skipAmount = (Number(page) - 1) * limit

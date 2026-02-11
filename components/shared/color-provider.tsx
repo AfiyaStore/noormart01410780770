@@ -32,7 +32,7 @@ export function ColorProvider({
     // ✅ Trigger update whenever theme OR color.name changes
     React.useEffect(() => {
         updateCssVariables()
-        console.log('Applying color:', color.name, color)
+        // console.log('Applying color:', color.name, color)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [theme, color.name])
